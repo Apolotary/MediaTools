@@ -6,13 +6,6 @@ src_folder = "e:\\misc\\Radiohead\\"
 
 albums = list()
 
-sl = '/'
-
-if os.name == 'posix':
-    sl = '/'
-elif os.name == ('nt', 'dos'):
-    sl = '\\'
-
 for file in os.listdir(src_folder):
     if ".mp3" in file:
         id3r = id3reader.Reader(src_folder+file)
@@ -26,6 +19,6 @@ for file in os.listdir(src_folder):
         if new_album:
             os.mkdir(src_folder+'('+year+')'+' '+album_name)
             albums.append(album_name)
-        shutil.move(src_folder+file,src_folder+sl+'('+year+')'+' '+album_name+sl+file)
+        shutil.move(os.path.abspath(src_folder+file), os.path.abspath(src_folder+'/'+'('+year+')'+' '+album_name+'/'+file))
     
     
